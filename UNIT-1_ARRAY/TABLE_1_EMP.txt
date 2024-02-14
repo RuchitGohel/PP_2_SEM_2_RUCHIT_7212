@@ -1,0 +1,78 @@
+SQL> create table DEPT;
+create table DEPT
+                *
+ERROR at line 1:
+ORA-00906: missing left parenthesis 
+
+
+SQL> create table DEPT (DEPTNO number(2), DNAME varchar(14), LOC varchar (13));
+
+Table created.
+
+SQL> insert into values (&DEPTNO, '&DNAME', '&LOC');
+Enter value for deptno: 10
+Enter value for dname: ACCOUNTING
+Enter value for loc: NEW YORK
+old   1: insert into values (&DEPTNO, '&DNAME', '&LOC')
+new   1: insert into values (10, 'ACCOUNTING', 'NEW YORK')
+insert into values (10, 'ACCOUNTING', 'NEW YORK')
+            *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> insert into DEPT values
+  2  (&DEPTNO,
+  3  '&DNAME',
+  4  '&LOC');
+Enter value for deptno: 10
+old   2: (&DEPTNO,
+new   2: (10,
+Enter value for dname: ACCOUNTING
+old   3: '&DNAME',
+new   3: 'ACCOUNTING',
+Enter value for loc: NEW YORK
+old   4: '&LOC')
+new   4: 'NEW YORK')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 20
+old   2: (&DEPTNO,
+new   2: (20,
+Enter value for dname: RESEARCH
+old   3: '&DNAME',
+new   3: 'RESEARCH',
+Enter value for loc: DALLAS
+old   4: '&LOC')
+new   4: 'DALLAS')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 30
+old   2: (&DEPTNO,
+new   2: (30,
+Enter value for dname: SALES
+old   3: '&DNAME',
+new   3: 'SALES',
+Enter value for loc: CHICAGO
+old   4: '&LOC')
+new   4: 'CHICAGO')
+
+1 row created.
+
+SQL> select * from DEPT;
+
+    DEPTNO DNAME          LOC                                                                       
+---------- -------------- -------------                                                             
+        10 ACCOUNTING     NEW YORK                                                                  
+        20 RESEARCH       DALLAS                                                                    
+        30 SALES          CHICAGO                                                                   
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool on
