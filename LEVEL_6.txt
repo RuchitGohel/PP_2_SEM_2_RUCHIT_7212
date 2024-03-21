@@ -1,0 +1,435 @@
+SQL> DESC EMP;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER(4)
+ EMPLOYEENAME                                       VARCHAR2(10)
+ DESIGNATION                                        VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SALARIES                                           NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                         
+---------                                                                       
+21-MAR-24                                                                       
+
+SQL> select count(*) from EMP;
+
+  COUNT(*)                                                                      
+----------                                                                      
+        13                                                                      
+
+SQL> select sum(SALARIES) as SALSUM from EMP;
+
+    SALSUM                                                                      
+----------                                                                      
+    277250                                                                      
+
+SQL> select count(DESIGNATION) from EMP where DESIGNATION='MANAGER';
+
+COUNT(DESIGNATION)                                                              
+------------------                                                              
+                 3                                                              
+
+SQL> set pagesize 200
+SQL> set linesize 200
+SQL> select * from EMP;
+
+     EMPNO EMPLOYEENA DESIGNATI        MGR HIREDATE    SALARIES       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-00       8000                    20                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-01      16000        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-01      12500        500         30                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-01      29750                    20                                                                                                                   
+      7564 MARTIN     SALESMAN        7698 20-SEP-01      12500       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-01      28500                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-01      24500                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-07      30000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-01      50000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-01      15000                    30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-07      11000                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-01       9500                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-01      30000                    20                                                                                                                   
+
+13 rows selected.
+
+SQL> select count(DEPTNO) from EMP;
+
+COUNT(DEPTNO)                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+           13                                                                                                                                                                                           
+
+SQL> select count(DNAME) from DEPT;
+
+COUNT(DNAME)                                                                                                                                                                                            
+------------                                                                                                                                                                                            
+           3                                                                                                                                                                                            
+
+SQL> list avg(SALARIES),DEPTNO from EMP group by DEPTNO;
+SP2-0224: invalid starting line number
+SQL> select avg(SALARIES),DEPTNO from EMP group by DEPTNO;
+
+AVG(SALARIES)     DEPTNO                                                                                                                                                                                
+------------- ----------                                                                                                                                                                                
+   15666.6667         30                                                                                                                                                                                
+        21750         20                                                                                                                                                                                
+        37250         10                                                                                                                                                                                
+
+SQL> select EMPLOYEENAME,HIREDATE(TO_CHAR,'DAY')from EMP;
+select EMPLOYEENAME,HIREDATE(TO_CHAR,'DAY')from EMP
+                    *
+ERROR at line 1:
+ORA-00904: "HIREDATE": invalid identifier 
+
+
+SQL> select EMPLOYEENAME,TO_CHAR(HIREDATE,'DAY')from EMP;
+
+EMPLOYEENA TO_CHAR(H                                                                                                                                                                                    
+---------- ---------                                                                                                                                                                                    
+SMITH      SUNDAY                                                                                                                                                                                       
+ALLEN      TUESDAY                                                                                                                                                                                      
+WARD       THURSDAY                                                                                                                                                                                     
+JONES      MONDAY                                                                                                                                                                                       
+MARTIN     THURSDAY                                                                                                                                                                                     
+BLAKE      TUESDAY                                                                                                                                                                                      
+CLARK      SATURDAY                                                                                                                                                                                     
+SCOTT      THURSDAY                                                                                                                                                                                     
+KING       SATURDAY                                                                                                                                                                                     
+TURNER     SATURDAY                                                                                                                                                                                     
+ADAMS      WEDNESDAY                                                                                                                                                                                    
+JAMES      MONDAY                                                                                                                                                                                       
+FORD       MONDAY                                                                                                                                                                                       
+
+13 rows selected.
+
+SQL> select next_day(TO_DATE('12-MAR-05'), 'FRIDAY') from DUAL;
+
+NEXT_DAY(                                                                                                                                                                                               
+---------                                                                                                                                                                                               
+18-MAR-05                                                                                                                                                                                               
+
+SQL> select EMPLOYEENAME between '30-MAR-01' and '01-JUN-02' from EMP;
+select EMPLOYEENAME between '30-MAR-01' and '01-JUN-02' from EMP
+                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select EMPLOYEENAME where HIREDATE between '30-MAR-01' and '01-JUN-02' from EMP;
+select EMPLOYEENAME where HIREDATE between '30-MAR-01' and '01-JUN-02' from EMP
+                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select EMPLOYEENAME from EMP where HIREDATE between '30-MAR-01' and '01-JUN-02';
+
+EMPLOYEENA                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+JONES                                                                                                                                                                                                   
+MARTIN                                                                                                                                                                                                  
+BLAKE                                                                                                                                                                                                   
+CLARK                                                                                                                                                                                                   
+KING                                                                                                                                                                                                    
+TURNER                                                                                                                                                                                                  
+JAMES                                                                                                                                                                                                   
+FORD                                                                                                                                                                                                    
+
+8 rows selected.
+
+SQL> select MIN(HIREDATE) from EMP;
+
+MIN(HIRED                                                                                                                                                                                               
+---------                                                                                                                                                                                               
+17-DEC-00                                                                                                                                                                                               
+
+SQL> selct EMPLOYEENAME where HIREDATE=MIN(HIREDATE) from EMP;
+SP2-0734: unknown command beginning "selct EMPL..." - rest of line ignored.
+SQL> selct EMPLOYEENAME from EMP where HIREDATE=MIN(HIREDATE);
+SP2-0734: unknown command beginning "selct EMPL..." - rest of line ignored.
+SQL> select EMPLOYEENAME from EMP where HIREDATE=MIN(HIREDATE);
+select EMPLOYEENAME from EMP where HIREDATE=MIN(HIREDATE)
+                                            *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> select EMPLOYEENAME from EMP where HIREDATE=(select MIN(HIREDATE) from EMP);
+
+EMPLOYEENA                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+SMITH                                                                                                                                                                                                   
+
+SQL> select * from EMP where DEPTNO not in (select DEPTNO from DEPT);
+
+no rows selected
+
+SQL> select * from EMP;
+
+     EMPNO EMPLOYEENA DESIGNATI        MGR HIREDATE    SALARIES       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-00       8000                    20                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-01      16000        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-01      12500        500         30                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-01      29750                    20                                                                                                                   
+      7564 MARTIN     SALESMAN        7698 20-SEP-01      12500       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-01      28500                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-01      24500                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-07      30000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-01      50000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-01      15000                    30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-07      11000                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-01       9500                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-01      30000                    20                                                                                                                   
+
+13 rows selected.
+
+SQL> select TO_CHAR(HIREDATE,DAY)/365 from EMP;
+select TO_CHAR(HIREDATE,DAY)/365 from EMP
+                        *
+ERROR at line 1:
+ORA-00904: "DAY": invalid identifier 
+
+
+SQL> select TO_CHAR(HIREDATE,'DAY')/365 from EMP;
+select TO_CHAR(HIREDATE,'DAY')/365 from EMP
+       *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> select EMPNO,EMPLOYEENAME,HIREDATE,(SYSDATE-HIREDATE)/365 from EMP;
+
+     EMPNO EMPLOYEENA HIREDATE  (SYSDATE-HIREDATE)/365                                                                                                                                                  
+---------- ---------- --------- ----------------------                                                                                                                                                  
+      7369 SMITH      17-DEC-00             23.2749565                                                                                                                                                  
+      7499 ALLEN      20-FEB-01             23.0968743                                                                                                                                                  
+      7521 WARD       22-FEB-01             23.0913949                                                                                                                                                  
+      7566 JONES      02-APR-01             22.9845455                                                                                                                                                  
+      7564 MARTIN     20-SEP-01             22.5160524                                                                                                                                                  
+      7698 BLAKE      01-MAY-01             22.9050935                                                                                                                                                  
+      7782 CLARK      09-JUN-01             22.7982442                                                                                                                                                  
+      7788 SCOTT      19-APR-07             16.9352305                                                                                                                                                  
+      7839 KING       17-NOV-01             22.3571483                                                                                                                                                  
+      7844 TURNER     08-SEP-01             22.5489291                                                                                                                                                  
+      7876 ADAMS      23-MAY-07             16.8420798                                                                                                                                                  
+      7900 JAMES      03-DEC-01             22.3133127                                                                                                                                                  
+      7902 FORD       03-DEC-01             22.3133127                                                                                                                                                  
+
+13 rows selected.
+
+SQL> select COUNT(EMPLOYEENAME) from EMP where HIREDATE>'22-MAR-01';\
+  2  select COUNT(EMPLOYEENAME) from EMP where HIREDATE>'22-MAR-01';
+select COUNT(EMPLOYEENAME) from EMP where HIREDATE>'22-MAR-01';\
+                                                              *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> select COUNT(EMPLOYEENAME) from EMP where HIREDATE>'22-MAR-01';
+
+COUNT(EMPLOYEENAME)                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+                 10                                                                                                                                                                                     
+
+SQL> select ('EMPLOYEE' || EMPLOYEENAME || 'WORKING IN DEPARTMENT' || DNAME || 'AND APPOINTED ON' || HIREDATE) from EMP;
+select ('EMPLOYEE' || EMPLOYEENAME || 'WORKING IN DEPARTMENT' || DNAME || 'AND APPOINTED ON' || HIREDATE) from EMP
+                                                                 *
+ERROR at line 1:
+ORA-00904: "DNAME": invalid identifier 
+
+
+SQL> select ('EMPLOYEE' || EMPLOYEENAME || 'WORKING IN DEPARTMENT' || DEPTNO || 'AND APPOINTED ON' || HIREDATE) from EMP;
+
+('EMPLOYEE'||EMPLOYEENAME||'WORKINGINDEPARTMENT'||DEPTNO||'ANDAPPOINTEDON'||HIREDATE)                                                                                                                   
+--------------------------------------------------------------------------------------------------------                                                                                                
+EMPLOYEESMITHWORKING IN DEPARTMENT20AND APPOINTED ON17-DEC-00                                                                                                                                           
+EMPLOYEEALLENWORKING IN DEPARTMENT30AND APPOINTED ON20-FEB-01                                                                                                                                           
+EMPLOYEEWARDWORKING IN DEPARTMENT30AND APPOINTED ON22-FEB-01                                                                                                                                            
+EMPLOYEEJONESWORKING IN DEPARTMENT20AND APPOINTED ON02-APR-01                                                                                                                                           
+EMPLOYEEMARTINWORKING IN DEPARTMENT30AND APPOINTED ON20-SEP-01                                                                                                                                          
+EMPLOYEEBLAKEWORKING IN DEPARTMENT30AND APPOINTED ON01-MAY-01                                                                                                                                           
+EMPLOYEECLARKWORKING IN DEPARTMENT10AND APPOINTED ON09-JUN-01                                                                                                                                           
+EMPLOYEESCOTTWORKING IN DEPARTMENT20AND APPOINTED ON19-APR-07                                                                                                                                           
+EMPLOYEEKINGWORKING IN DEPARTMENT10AND APPOINTED ON17-NOV-01                                                                                                                                            
+EMPLOYEETURNERWORKING IN DEPARTMENT30AND APPOINTED ON08-SEP-01                                                                                                                                          
+EMPLOYEEADAMSWORKING IN DEPARTMENT20AND APPOINTED ON23-MAY-07                                                                                                                                           
+EMPLOYEEJAMESWORKING IN DEPARTMENT30AND APPOINTED ON03-DEC-01                                                                                                                                           
+EMPLOYEEFORDWORKING IN DEPARTMENT20AND APPOINTED ON03-DEC-01                                                                                                                                            
+
+13 rows selected.
+
+SQL> select * from EMP where DEPTNO not in (select DEPTNO from DEPT);
+
+no rows selected
+
+SQL> select ('EMPLOYEE' || EMPLOYEENAME || 'WORKING IN DEPARTMENT' || DNAME || 'AND APPOINTED ON' || HIREDATE) from EMP and from DEPT;
+select ('EMPLOYEE' || EMPLOYEENAME || 'WORKING IN DEPARTMENT' || DNAME || 'AND APPOINTED ON' || HIREDATE) from EMP and from DEPT
+                                                                                                                   *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select ('EMPLOYEE' || EMPLOYEENAME || 'WORKING IN DEPARTMENT' || DNAME || 'AND APPOINTED ON' || HIREDATE) from EMP and DEPT;
+select ('EMPLOYEE' || EMPLOYEENAME || 'WORKING IN DEPARTMENT' || DNAME || 'AND APPOINTED ON' || HIREDATE) from EMP and DEPT
+                                                                                                                   *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select RPAD(HIREDATE,5) from EMP;
+
+RPAD(                                                                                                                                                                                                   
+-----                                                                                                                                                                                                   
+17-DE                                                                                                                                                                                                   
+20-FE                                                                                                                                                                                                   
+22-FE                                                                                                                                                                                                   
+02-AP                                                                                                                                                                                                   
+20-SE                                                                                                                                                                                                   
+01-MA                                                                                                                                                                                                   
+09-JU                                                                                                                                                                                                   
+19-AP                                                                                                                                                                                                   
+17-NO                                                                                                                                                                                                   
+08-SE                                                                                                                                                                                                   
+23-MA                                                                                                                                                                                                   
+03-DE                                                                                                                                                                                                   
+03-DE                                                                                                                                                                                                   
+
+13 rows selected.
+
+SQL> select RPAD(HIREDATE) from EMP;
+select RPAD(HIREDATE) from EMP
+       *
+ERROR at line 1:
+ORA-00938: not enough arguments for function 
+
+
+SQL> select RPAD(HIREDATE,0) from EMP;
+
+R                                                                                                                                                                                                       
+-                                                                                                                                                                                                       
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+
+13 rows selected.
+
+SQL> select RPAD(HIREDATE,15) from EMP;
+
+RPAD(HIREDATE,1                                                                                                                                                                                         
+---------------                                                                                                                                                                                         
+17-DEC-00                                                                                                                                                                                               
+20-FEB-01                                                                                                                                                                                               
+22-FEB-01                                                                                                                                                                                               
+02-APR-01                                                                                                                                                                                               
+20-SEP-01                                                                                                                                                                                               
+01-MAY-01                                                                                                                                                                                               
+09-JUN-01                                                                                                                                                                                               
+19-APR-07                                                                                                                                                                                               
+17-NOV-01                                                                                                                                                                                               
+08-SEP-01                                                                                                                                                                                               
+23-MAY-07                                                                                                                                                                                               
+03-DEC-01                                                                                                                                                                                               
+03-DEC-01                                                                                                                                                                                               
+
+13 rows selected.
+
+SQL> select TRIM(EMPNO), TRIM(EMPLOYEENAME) from EMP;
+
+TRIM(EMPNO)                              TRIM(EMPLO                                                                                                                                                     
+---------------------------------------- ----------                                                                                                                                                     
+7369                                     SMITH                                                                                                                                                          
+7499                                     ALLEN                                                                                                                                                          
+7521                                     WARD                                                                                                                                                           
+7566                                     JONES                                                                                                                                                          
+7564                                     MARTIN                                                                                                                                                         
+7698                                     BLAKE                                                                                                                                                          
+7782                                     CLARK                                                                                                                                                          
+7788                                     SCOTT                                                                                                                                                          
+7839                                     KING                                                                                                                                                           
+7844                                     TURNER                                                                                                                                                         
+7876                                     ADAMS                                                                                                                                                          
+7900                                     JAMES                                                                                                                                                          
+7902                                     FORD                                                                                                                                                           
+
+13 rows selected.
+
+SQL> select TRIM(  EMPNO  ), TRIM(  EMPLOYEENAME  ) from EMP;
+
+TRIM(EMPNO)                              TRIM(EMPLO                                                                                                                                                     
+---------------------------------------- ----------                                                                                                                                                     
+7369                                     SMITH                                                                                                                                                          
+7499                                     ALLEN                                                                                                                                                          
+7521                                     WARD                                                                                                                                                           
+7566                                     JONES                                                                                                                                                          
+7564                                     MARTIN                                                                                                                                                         
+7698                                     BLAKE                                                                                                                                                          
+7782                                     CLARK                                                                                                                                                          
+7788                                     SCOTT                                                                                                                                                          
+7839                                     KING                                                                                                                                                           
+7844                                     TURNER                                                                                                                                                         
+7876                                     ADAMS                                                                                                                                                          
+7900                                     JAMES                                                                                                                                                          
+7902                                     FORD                                                                                                                                                           
+
+13 rows selected.
+
+SQL> select LPAD(HIREDATE,15), LPAD(EMPLOYEENAME,15),LPAD(DESIGNATION,15),LPAD(MGR,15), from EMP;
+select LPAD(HIREDATE,15), LPAD(EMPLOYEENAME,15),LPAD(DESIGNATION,15),LPAD(MGR,15), from EMP
+                                                                                   *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select LPAD(HIREDATE,15), LPAD(EMPLOYEENAME,15),LPAD(DESIGNATION,15),LPAD(MGR,15)
+  2  LPAD(HIREDATE,15),LPAD(SALARIES,15),LPAD(COMM,15),LPAD(DEPTNO,15) from EMP;
+LPAD(HIREDATE,15),LPAD(SALARIES,15),LPAD(COMM,15),LPAD(DEPTNO,15) from EMP
+    *
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select T1.EMPNO,T1.EMPLOYEENAME "EMPLOYEE", T1.MGR,T2.ENAME "MANAGER" from EMP T1,EMP T2
+  2  where T1.MGR=T2.EMPNO;
+select T1.EMPNO,T1.EMPLOYEENAME "EMPLOYEE", T1.MGR,T2.ENAME "MANAGER" from EMP T1,EMP T2
+                                                   *
+ERROR at line 1:
+ORA-00904: "T2"."ENAME": invalid identifier 
+
+
+SQL> select T1.EMPNO,T1.EMPLOYEENAME"EMPLOYEE",T1.MGR,T2.ENAME"MANAGER" from EMP T1,EMP T2
+  2  
+SQL> select T1.EMPNO,T1.EMPLOYEENAME"EMPLOYEE",T1.MGR,T2.EMPLOYEENAME"MANAGER" from EMP T1,EMP T2
+  2  where T1.MGR=T2.EMPNO;
+
+     EMPNO EMPLOYEE          MGR MANAGER                                                                                                                                                                
+---------- ---------- ---------- ----------                                                                                                                                                             
+      7902 FORD             7566 JONES                                                                                                                                                                  
+      7788 SCOTT            7566 JONES                                                                                                                                                                  
+      7900 JAMES            7698 BLAKE                                                                                                                                                                  
+      7844 TURNER           7698 BLAKE                                                                                                                                                                  
+      7564 MARTIN           7698 BLAKE                                                                                                                                                                  
+      7521 WARD             7698 BLAKE                                                                                                                                                                  
+      7499 ALLEN            7698 BLAKE                                                                                                                                                                  
+      7876 ADAMS            7788 SCOTT                                                                                                                                                                  
+      7782 CLARK            7839 KING                                                                                                                                                                   
+      7698 BLAKE            7839 KING                                                                                                                                                                   
+      7566 JONES            7839 KING                                                                                                                                                                   
+      7369 SMITH            7902 FORD                                                                                                                                                                   
+
+12 rows selected.
+
+SQL> spool off
