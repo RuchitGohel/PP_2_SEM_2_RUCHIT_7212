@@ -1,0 +1,562 @@
+SQL> create table
+  2  (STUD_ID NUMBER(2) CONSTRAINT N1 NOT NULL,
+  3  FIRSTNM VARCHAR2(10),
+  4  LASTNM VARCHAR2(10),
+  5  BDATE DATE CONSTRAINT N2 NOT NULL,
+  6  ADDRESS VARCHAR2(25),
+  7  CITY VARCHAR2(15) CONSTRAINT CITY1 CHECK(CITY IN('RAJKOT', 'BARODA', 'SURAT', 'OTHER')),
+  8  STREAM VARCHAR2(15) CONSTRAINT STREAM1 CHECK(STREAM IN('IT', 'COMMERCE', 'MANAGEMENT')),
+  9  SEM NUMBER(1)0;
+(STUD_ID NUMBER(2) CONSTRAINT N1 NOT NULL,
+*
+ERROR at line 2:
+ORA-00903: invalid table name 
+
+
+SQL> create table STUDENT
+  2  (STUD_ID NUMBER(2) CONSTRAINT N1 NOT NULL,
+  3  FIRSTNM VARCHAR2(10),
+  4  LASTNM VARCHAR2(10),
+  5  BDATE DATE CONSTRAINT N2 NOT NULL,
+  6  ADDRESS VARCHAR2(25),
+  7  CITY VARCHAR2(15) CONSTRAINT CITY1 CHECK(CITY IN('RAJKOT', 'BARODA', 'SURAT', 'OTHER')),
+  8  STREAM VARCHAR2(15) CONSTRAINT STREAM1 CHECK(STREAM IN('IT', 'COMMERCE', 'MANAGEMENT')),
+  9  SEM NUMBER(1)0;
+SEM NUMBER(1)0
+             *
+ERROR at line 9:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table STUDENT
+  2  (STUD_ID NUMBER(2) CONSTRAINT N1 NOT NULL,
+  3  FIRSTNM VARCHAR2(10),
+  4  LASTNM VARCHAR2(10),
+  5  BDATE DATE CONSTRAINT N2 NOT NULL,
+  6  ADDRESS VARCHAR2(25),
+  7  CITY VARCHAR2(15) CONSTRAINT CITY1 CHECK(CITY IN('RAJKOT', 'BARODA', 'SURAT', 'OTHER')),
+  8  STREAM VARCHAR2(15) CONSTRAINT STREAM1 CHECK(STREAM IN('IT', 'COMMERCE', 'MANAGEMENT')),
+  9  SEM NUMBER(1));
+
+Table created.
+
+SQL> select * from USER_CONS_COLUMNS where TABLE_NAME='STUDENT';
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+TABLE_NAME                                                                      
+------------------------------                                                  
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+  POSITION                                                                      
+----------                                                                      
+RUCHIT_7212                    CITY1                                            
+STUDENT                                                                         
+CITY                                                                            
+                                                                                
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+TABLE_NAME                                                                      
+------------------------------                                                  
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+  POSITION                                                                      
+----------                                                                      
+RUCHIT_7212                    N2                                               
+STUDENT                                                                         
+BDATE                                                                           
+                                                                                
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+TABLE_NAME                                                                      
+------------------------------                                                  
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+  POSITION                                                                      
+----------                                                                      
+RUCHIT_7212                    N1                                               
+STUDENT                                                                         
+STUD_ID                                                                         
+                                                                                
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+TABLE_NAME                                                                      
+------------------------------                                                  
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+  POSITION                                                                      
+----------                                                                      
+RUCHIT_7212                    STREAM1                                          
+STUDENT                                                                         
+STREAM                                                                          
+                                                                                
+                                                                                
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 1
+Enter value for firstnm: RYAN
+Enter value for lastnm: GOSLING
+Enter value for bdate: 20-DEC-98
+Enter value for address: DOUBLETREE RD
+Enter value for city: RAJKOT
+Enter value for stream: COMMERCE
+Enter value for sem: 4
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (1, 'RYAN','GOSLING','20-DEC-98','DOUBLETREE RD','RAJKOT', 'COMMERCE',4)
+
+1 row created.
+
+SQL> 
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 2
+Enter value for firstnm: BRAD
+Enter value for lastnm: PITT
+Enter value for bdate: 16-OCT-05
+Enter value for address: SPRING RD
+Enter value for city: SURAT
+Enter value for stream: IT
+Enter value for sem: 2
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (2, 'BRAD','PITT','16-OCT-05','SPRING RD','SURAT', 'IT',2)
+
+1 row created.
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 3
+Enter value for firstnm: KANYE
+Enter value for lastnm: WEST
+Enter value for bdate: 01-JAN-00
+Enter value for address: FOREST RD
+Enter value for city: BARODA
+Enter value for stream: MANAGEMENT
+Enter value for sem: 8
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (3, 'KANYE','WEST','01-JAN-00','FOREST RD','BARODA', 'MANAGEMENT',8)
+
+1 row created.
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 4
+Enter value for firstnm: TOM
+Enter value for lastnm: CRUISE
+Enter value for bdate: 16-OCT-05
+Enter value for address: UNDERGROUND RD
+Enter value for city: RAJKOT
+Enter value for stream: IT
+Enter value for sem: 3
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (4, 'TOM','CRUISE','16-OCT-05','UNDERGROUND RD','RAJKOT', 'IT',3)
+
+1 row created.
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 5
+Enter value for firstnm: ROBERT D
+Enter value for lastnm: JR
+Enter value for bdate: 20-APR-01
+Enter value for address: VANISHED RD
+Enter value for city: SURAT
+Enter value for stream: 8
+Enter value for sem: 
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (5, 'ROBERT D','JR','20-APR-01','VANISHED RD','SURAT', '8',)
+(5, 'ROBERT D','JR','20-APR-01','VANISHED RD','SURAT', '8',)
+                                                           *
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 5
+Enter value for firstnm: ROBERT D
+Enter value for lastnm: JR
+Enter value for bdate: 20-APR-01
+Enter value for address: VANISHED RD
+Enter value for city: SURAT
+Enter value for stream: IT
+Enter value for sem: 8
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (5, 'ROBERT D','JR','20-APR-01','VANISHED RD','SURAT', 'IT',8)
+
+1 row created.
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 6
+Enter value for firstnm: CILIAN MURPHY
+Enter value for lastnm: SHELBY
+Enter value for bdate: 
+Enter value for address: 
+Enter value for city: 
+Enter value for stream: 
+Enter value for sem: 
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (6, 'CILIAN MURPHY','SHELBY','','','', '',)
+(6, 'CILIAN MURPHY','SHELBY','','','', '',)
+                                          *
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> 
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 6
+Enter value for firstnm: CILIAN
+Enter value for lastnm: MURPHY
+Enter value for bdate: 09-MARCH-98
+Enter value for address: BERRIE RD
+Enter value for city: OTHER
+Enter value for stream: COMMERCE
+Enter value for sem: 6
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (6, 'CILIAN','MURPHY','09-MARCH-98','BERRIE RD','OTHER', 'COMMERCE',6)
+
+1 row created.
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 7
+Enter value for firstnm: CHARLIE
+Enter value for lastnm: HUNNAM
+Enter value for bdate: 10-APR-97
+Enter value for address: GENTLEMEN RD
+Enter value for city: SURAT
+Enter value for stream: MANAGEMENT
+Enter value for sem: 7
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (7, 'CHARLIE','HUNNAM','10-APR-97','GENTLEMEN RD','SURAT', 'MANAGEMENT',7)
+
+1 row created.
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 8
+Enter value for firstnm: GUY
+Enter value for lastnm: RITCHIE
+Enter value for bdate: 10-SEP-68
+Enter value for address: BERRY RD
+Enter value for city: OTHER
+Enter value for stream: IT
+Enter value for sem: 5
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (8, 'GUY','RITCHIE','10-SEP-68','BERRY RD','OTHER', 'IT',5)
+
+1 row created.
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 9
+Enter value for firstnm: CHRISTIAN
+Enter value for lastnm: BALE
+Enter value for bdate: 30-JAN-98
+Enter value for address: GOTHAM RD
+Enter value for city: OTHER
+Enter value for stream: COMMERCE
+Enter value for sem: 8
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (9, 'CHRISTIAN','BALE','30-JAN-98','GOTHAM RD','OTHER', 'COMMERCE',8)
+
+1 row created.
+
+SQL> insert into STUDENT values
+  2  (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM);
+Enter value for stud_id: 10
+Enter value for firstnm: HEATH 
+Enter value for lastnm: LEDGER
+Enter value for bdate: 04-APR-79
+Enter value for address: SURF RD
+Enter value for city: RAJKOT
+Enter value for stream: MANAGEMENT
+Enter value for sem: 8
+old   2: (&STUD_ID, '&FIRSTNM','&LASTNM','&BDATE','&ADDRESS','&CITY', '&STREAM',&SEM)
+new   2: (10, 'HEATH ','LEDGER','04-APR-79','SURF RD','RAJKOT', 'MANAGEMENT',8)
+
+1 row created.
+
+SQL> select * from STUDENT;
+
+   STUD_ID FIRSTNM    LASTNM     BDATE     ADDRESS                              
+---------- ---------- ---------- --------- -------------------------            
+CITY            STREAM                 SEM                                      
+--------------- --------------- ----------                                      
+         1 RYAN       GOSLING    20-DEC-98 DOUBLETREE RD                        
+RAJKOT          COMMERCE                 4                                      
+                                                                                
+         2 BRAD       PITT       16-OCT-05 SPRING RD                            
+SURAT           IT                       2                                      
+                                                                                
+         3 KANYE      WEST       01-JAN-00 FOREST RD                            
+BARODA          MANAGEMENT               8                                      
+                                                                                
+
+   STUD_ID FIRSTNM    LASTNM     BDATE     ADDRESS                              
+---------- ---------- ---------- --------- -------------------------            
+CITY            STREAM                 SEM                                      
+--------------- --------------- ----------                                      
+         4 TOM        CRUISE     16-OCT-05 UNDERGROUND RD                       
+RAJKOT          IT                       3                                      
+                                                                                
+         5 ROBERT D   JR         20-APR-01 VANISHED RD                          
+SURAT           IT                       8                                      
+                                                                                
+         6 CILIAN     MURPHY     09-MAR-98 BERRIE RD                            
+OTHER           COMMERCE                 6                                      
+                                                                                
+
+   STUD_ID FIRSTNM    LASTNM     BDATE     ADDRESS                              
+---------- ---------- ---------- --------- -------------------------            
+CITY            STREAM                 SEM                                      
+--------------- --------------- ----------                                      
+         7 CHARLIE    HUNNAM     10-APR-97 GENTLEMEN RD                         
+SURAT           MANAGEMENT               7                                      
+                                                                                
+         8 GUY        RITCHIE    10-SEP-68 BERRY RD                             
+OTHER           IT                       5                                      
+                                                                                
+         9 CHRISTIAN  BALE       30-JAN-98 GOTHAM RD                            
+OTHER           COMMERCE                 8                                      
+                                                                                
+
+   STUD_ID FIRSTNM    LASTNM     BDATE     ADDRESS                              
+---------- ---------- ---------- --------- -------------------------            
+CITY            STREAM                 SEM                                      
+--------------- --------------- ----------                                      
+        10 HEATH      LEDGER     04-APR-79 SURF RD                              
+RAJKOT          MANAGEMENT               8                                      
+                                                                                
+
+10 rows selected.
+
+SQL> set pagesize 200
+SQL> set linesize 200
+SQL> 
+SQL> select * from STUDENT;
+
+   STUD_ID FIRSTNM    LASTNM     BDATE     ADDRESS                   CITY            STREAM                 SEM                                                                                         
+---------- ---------- ---------- --------- ------------------------- --------------- --------------- ----------                                                                                         
+         1 RYAN       GOSLING    20-DEC-98 DOUBLETREE RD             RAJKOT          COMMERCE                 4                                                                                         
+         2 BRAD       PITT       16-OCT-05 SPRING RD                 SURAT           IT                       2                                                                                         
+         3 KANYE      WEST       01-JAN-00 FOREST RD                 BARODA          MANAGEMENT               8                                                                                         
+         4 TOM        CRUISE     16-OCT-05 UNDERGROUND RD            RAJKOT          IT                       3                                                                                         
+         5 ROBERT D   JR         20-APR-01 VANISHED RD               SURAT           IT                       8                                                                                         
+         6 CILIAN     MURPHY     09-MAR-98 BERRIE RD                 OTHER           COMMERCE                 6                                                                                         
+         7 CHARLIE    HUNNAM     10-APR-97 GENTLEMEN RD              SURAT           MANAGEMENT               7                                                                                         
+         8 GUY        RITCHIE    10-SEP-68 BERRY RD                  OTHER           IT                       5                                                                                         
+         9 CHRISTIAN  BALE       30-JAN-98 GOTHAM RD                 OTHER           COMMERCE                 8                                                                                         
+        10 HEATH      LEDGER     04-APR-79 SURF RD                   RAJKOT          MANAGEMENT               8                                                                                         
+
+10 rows selected.
+
+SQL> select * from student where CITY='RAJKOT';
+
+   STUD_ID FIRSTNM    LASTNM     BDATE     ADDRESS                   CITY            STREAM                 SEM                                                                                         
+---------- ---------- ---------- --------- ------------------------- --------------- --------------- ----------                                                                                         
+         1 RYAN       GOSLING    20-DEC-98 DOUBLETREE RD             RAJKOT          COMMERCE                 4                                                                                         
+         4 TOM        CRUISE     16-OCT-05 UNDERGROUND RD            RAJKOT          IT                       3                                                                                         
+        10 HEATH      LEDGER     04-APR-79 SURF RD                   RAJKOT          MANAGEMENT               8                                                                                         
+
+SQL> select * from student where STREAM='MANAGEMENT';
+
+   STUD_ID FIRSTNM    LASTNM     BDATE     ADDRESS                   CITY            STREAM                 SEM                                                                                         
+---------- ---------- ---------- --------- ------------------------- --------------- --------------- ----------                                                                                         
+         3 KANYE      WEST       01-JAN-00 FOREST RD                 BARODA          MANAGEMENT               8                                                                                         
+         7 CHARLIE    HUNNAM     10-APR-97 GENTLEMEN RD              SURAT           MANAGEMENT               7                                                                                         
+        10 HEATH      LEDGER     04-APR-79 SURF RD                   RAJKOT          MANAGEMENT               8                                                                                         
+
+SQL> count (STUD_ID) where STREAM='IT';
+SP2-0734: unknown command beginning "count (STU..." - rest of line ignored.
+SQL> select  COUNT(STREAM) where STREAM='IT';
+select  COUNT(STREAM) where STREAM='IT'
+                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select  COUNT(STREAM) where STREAM='IT' from STUDENT;
+select  COUNT(STREAM) where STREAM='IT' from STUDENT
+                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select  COUNT(STREAM) from STUDENT where STREAM='IT';
+
+COUNT(STREAM)                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+            4                                                                                                                                                                                           
+
+SQL> alter table ADD
+  2  alter table ADD
+  3  alter table  STUDENT ADD
+  4  (CONTACTNO NUMBER(10));
+alter table ADD
+            *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> alter table  STUDENT ADD (CONTACT NUMBER(10));
+
+Table altered.
+
+SQL> UPDATE STUDENT SET CONTACTNO=9230052722 where STUD_ID=1;
+UPDATE STUDENT SET CONTACTNO=9230052722 where STUD_ID=1
+                   *
+ERROR at line 1:
+ORA-00904: "CONTACTNO": invalid identifier 
+
+
+SQL> UPDATE STUDENT SET CONTACT=9230052722 where STUD_ID=1;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052721 where STUD_ID=2;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052723 where STUD_ID=2;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052724 where STUD_ID=3;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052725 where STUD_ID=4;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052726 where STUD_ID=5;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052766 where STUD_ID=6;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052767 where STUD_ID=7;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052768 where STUD_ID=8;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052769 where STUD_ID=9;
+
+1 row updated.
+
+SQL> UPDATE STUDENT SET CONTACT=9230052760 where STUD_ID=10;
+
+1 row updated.
+
+SQL> select * from STUDENT where STREAM ='IT' and STUD_ID>5;
+
+   STUD_ID FIRSTNM    LASTNM     BDATE     ADDRESS                   CITY            STREAM                 SEM    CONTACT                                                                              
+---------- ---------- ---------- --------- ------------------------- --------------- --------------- ---------- ----------                                                                              
+         8 GUY        RITCHIE    10-SEP-68 BERRY RD                  OTHER           IT                       5 9230052768                                                                              
+
+SQL> select FIRSTNM from STUDENT where FIRSTNM like 'A%';
+
+no rows selected
+
+SQL> ALTER TABLE STUDENT DROP CONTACT;
+ALTER TABLE STUDENT DROP CONTACT
+                         *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> DROP CONTACT from STUDENT;
+DROP CONTACT from STUDENT
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> ALTER STUDENT TABLE DROP CONTACT;
+ALTER STUDENT TABLE DROP CONTACT
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> DELETE CONTACT from STUDENT;
+DELETE CONTACT from STUDENT
+               *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> DROP CONTACT;
+DROP CONTACT
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> DROP INDEX CONTACT;
+DROP INDEX CONTACT
+           *
+ERROR at line 1:
+ORA-01418: specified index does not exist 
+
+
+SQL> ALTER TABLE STUDENT DROP COLUMN CONTACT;
+
+Table altered.
+
+SQL> ALTER TABLE STUDENT MODIFY(STREAM(18));
+ALTER TABLE STUDENT MODIFY(STREAM(18))
+                                 *
+ERROR at line 1:
+ORA-00902: invalid datatype 
+
+
+SQL> ALTER TABLE STUDENT MODIFY(STREAM VARCHAR2(18));
+
+Table altered.
+
+SQL> ALTER TABLE STUDENT MODIFY(STREAM VARCHAR2(15));
+
+Table altered.
+
+SQL> ALTER TABLE STUDENT MODIFY(STREAM VARCHAR2(10));
+
+Table altered.
+
+SQL> ALTER TABLE STUDENT MODIFY(STREAM VARCHAR2(9));
+ALTER TABLE STUDENT MODIFY(STREAM VARCHAR2(9))
+                           *
+ERROR at line 1:
+ORA-01441: cannot decrease column length because some value is too big 
+
+
+SQL> ALTER TABLE STUDENT MODIFY(STREAM VARCHAR2(18));
+
+Table altered.
+
+SQL> select * from STUDENT where SEM=1;
+
+no rows selected
+
+SQL> REANAME STUDENT TO STUDENTINFO;
+SP2-0734: unknown command beginning "REANAME ST..." - rest of line ignored.
+SQL> RENAME STUDENT TO STUDENTINFO;
+
+Table renamed.
+
+SQL> spool off
